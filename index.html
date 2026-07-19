@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>emailjs.init('on66kjrOVrALtb36U');</script>
+<!-- X (Twitter) Pixel Base Code -->
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+twq('config','rdzt3');
+</script>
+<!-- End X Pixel Base Code -->
 <title>QwikTel — Ask Salesforce anything. Get the answer in seconds.</title>
 <meta name="description" content="QwikTel is an AI analytics agent native to Salesforce. Ask questions in plain English and get live dashboards, forecasts, and next actions — grounded in your CRM data. Available on iOS and Android." />
 <meta name="theme-color" content="#6366F1" />
@@ -1931,6 +1937,7 @@ if (demoForm) {
         demoForm.style.display = 'none';
         var success = document.getElementById('demoSuccess');
         if (success) success.style.display = 'flex';
+        twq('event', 'tw-rdzt3-rdzt6', {});
       }, function() {
         btn.textContent = 'Request Demo →';
         btn.disabled = false;
