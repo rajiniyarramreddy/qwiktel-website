@@ -1207,6 +1207,30 @@ footer {
   transition: color 0.15s;
 }
 .footer-col a:hover { color: var(--primary); }
+.footer-offices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+  padding-bottom: 40px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.footer-office h6 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 12px;
+}
+.footer-office p {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.65;
+  margin-bottom: 6px;
+}
+.footer-office a { color: var(--text2); text-decoration: none; }
+.footer-office a:hover { color: var(--primary); }
 .footer-bottom {
   border-top: 1px solid var(--border);
   padding-top: 24px;
@@ -1817,6 +1841,26 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outli
 
 <footer>
   <div class="wrap">
+    <div class="footer-offices">
+      <div class="footer-office">
+        <h6>Hyderabad Office</h6>
+        <p>
+          Laxmi Cyber City<br />
+          Kondapur, Whitefields, Gachibowli<br />
+          Kondapur, Hyderabad, Telangana 500084
+        </p>
+        <p><a href="tel:+919491456233">+91 94914 56233</a></p>
+      </div>
+      <div class="footer-office">
+        <h6>Colombia Office</h6>
+        <p>
+          Carrera 10 No. 97A - 13, Oficina No. 202, Torre B<br />
+          Edificio Bogotá Trade Center<br />
+          Barrio Chico Norte, Bogotá, Colombia
+        </p>
+        <p><a href="tel:+576017436530">Colombia: +57 601 7436530</a></p>
+      </div>
+    </div>
     <div class="footer-bottom">
       <span>© 2026 QwikTel, Inc. All rights reserved. · <a href="privacy.html" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='#6366F1'" onmouseout="this.style.color='inherit'">Privacy Policy</a></span>
       <span>SOC 2 Type II · GDPR · Salesforce AppExchange</span>
