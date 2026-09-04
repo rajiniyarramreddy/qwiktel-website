@@ -3,6 +3,21 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<!-- Language redirect — runs before anything else loads to avoid a flash of English content.
+     Respects an explicit past choice (qwiktel_lang in localStorage); otherwise infers from the
+     browser's language setting, which is the best signal available without a server-side
+     IP-geolocation lookup. -->
+<script>
+(function () {
+  try {
+    var pref = localStorage.getItem('qwiktel_lang');
+    if (pref === 'en') return;
+    if (pref === 'es') { window.location.replace('es.html'); return; }
+    var lang = ((navigator.language || navigator.userLanguage || '') + '').toLowerCase();
+    if (lang.indexOf('es') === 0) { window.location.replace('es.html'); }
+  } catch (e) { /* localStorage/navigator unavailable — fail open to English */ }
+})();
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z96WGERG7G"></script>
 <script>
@@ -267,6 +282,24 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .hamburger:hover { border-color: var(--primary); color: var(--primary); }
 .hamburger svg { width: 18px; height: 18px; }
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.lang-switch a,
+.lang-switch span {
+  padding: 4px 6px;
+  border-radius: 6px;
+  color: var(--text3);
+}
+.lang-switch a { color: var(--text2); transition: all 0.15s; }
+.lang-switch a:hover { color: var(--primary); background: var(--primary-bg); }
+.lang-switch .active { color: var(--primary); background: var(--primary-bg); }
+.lang-switch .sep { color: var(--border2); padding: 0; }
 @media (max-width: 820px) {
   .nav-links { display: none; }
   .btn-nav-secondary { display: none; }
@@ -984,11 +1017,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* ── Pricing ── */
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
   margin-top: 40px;
-  align-items: start;
+  align-items: stretch;
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
 }
+.pricing-grid .pricing-card { height: 100%; }
 .pricing-card {
   background: var(--white);
   border: 1px solid var(--border);
@@ -1054,7 +1091,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .pricing-card-featured .pricing-price { color: #a5b4fc; }
 .pricing-card-featured .pricing-price span { color: #c7d2fe; }
 .pricing-price-custom {
-  font-size: 26px;
+  font-size: 34px;
 }
 .pricing-features {
   list-style: none;
@@ -1215,6 +1252,30 @@ footer {
   transition: color 0.15s;
 }
 .footer-col a:hover { color: var(--primary); }
+.footer-offices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+  padding-bottom: 40px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.footer-office h6 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 12px;
+}
+.footer-office p {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.65;
+  margin-bottom: 6px;
+}
+.footer-office a { color: var(--text2); text-decoration: none; }
+.footer-office a:hover { color: var(--primary); }
 .footer-bottom {
   border-top: 1px solid var(--border);
   padding-top: 24px;
@@ -1278,6 +1339,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outli
         </svg>
         <span>Google Play</span>
       </a>
+      <div class="lang-switch notranslate" translate="no" aria-label="Language">
+        <span class="active">EN</span>
+        <span class="sep">|</span>
+        <a href="es.html" onclick="try{localStorage.setItem('qwiktel_lang','es');}catch(e){}">ES</a>
+      </div>
       <a href="#drawer" class="hamburger" id="hamburgerBtn" aria-label="Open menu" onclick="openDrawer();return false;" role="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <path d="M4 7h16M4 12h16M4 17h16"/>
@@ -1299,6 +1365,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outli
     <a href="#mobile">Mobile</a>
     <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
+    <div class="lang-switch notranslate" translate="no" style="padding:12px 16px 0;" aria-label="Language">
+      <span class="active">EN</span>
+      <span class="sep">|</span>
+      <a href="es.html" onclick="try{localStorage.setItem('qwiktel_lang','es');}catch(e){}">ES</a>
+    </div>
     <div class="drawer-ctas">
       <a href="https://appexchange.salesforce.com/appxListingDetail?listingId=42f8bb17-de4a-4931-b754-3c6631475971" target="_blank" rel="noopener" class="btn" style="justify-content:center;gap:8px;background:#00A1E0;color:#fff;border-color:#00A1E0;">
         <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-1.97 9.33c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.891z"/></svg>
@@ -1727,22 +1798,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outli
         <a href="https://appexchange.salesforce.com/appxListingDetail?listingId=42f8bb17-de4a-4931-b754-3c6631475971" target="_blank" rel="noopener" class="btn btn-outline" style="width:100%;justify-content:center;">Try QwikTel</a>
       </div>
 
-      <!-- Growth (Featured) -->
-      <div class="pricing-card pricing-card-featured">
-        <div class="pricing-badge">Most popular</div>
-        <h3 class="pricing-plan">Growth</h3>
-        <p class="pricing-desc">For RevOps-led teams at $10M–$200M ARR</p>
-        <div class="pricing-price">$49 <span>/user/mo</span></div>
-        <ul class="pricing-features">
-          <li>Unlimited users</li>
-          <li>Custom dashboards &amp; saved prompts</li>
-          <li>Unlimited query history</li>
-          <li>Priority chat support</li>
-          <li>Quarterly pipeline review session</li>
-        </ul>
-        <a href="https://appexchange.salesforce.com/appxListingDetail?listingId=42f8bb17-de4a-4931-b754-3c6631475971" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;justify-content:center;">Try QwikTel</a>
-      </div>
-
       <!-- Enterprise -->
       <div class="pricing-card">
         <h3 class="pricing-plan">Enterprise</h3>
@@ -1825,6 +1880,26 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outli
 
 <footer>
   <div class="wrap">
+    <div class="footer-offices">
+      <div class="footer-office">
+        <h6>Hyderabad Office</h6>
+        <p>
+          COHORT Coworking<br />
+          2/91/20, BP Raju Marg, Kondapur, Laxmi Cyber City<br />
+          Whitefields, Kondapur, Hyderabad, Telangana 500081
+        </p>
+        <p><a href="tel:+919491456233">+91 94914 56233</a></p>
+      </div>
+      <div class="footer-office">
+        <h6>Colombia Office</h6>
+        <p>
+          Carrera 10 No. 97A - 13, Oficina No. 202, Torre B<br />
+          Edificio Bogotá Trade Center<br />
+          Barrio Chico Norte, Bogotá, Colombia
+        </p>
+        <p><a href="tel:+576017436530">Colombia: +57 601 7436530</a></p>
+      </div>
+    </div>
     <div class="footer-bottom">
       <span>© 2026 QwikTel, Inc. All rights reserved. · <a href="privacy.html" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='#6366F1'" onmouseout="this.style.color='inherit'">Privacy Policy</a></span>
       <span>SOC 2 Type II · GDPR · Salesforce AppExchange</span>
